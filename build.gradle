@@ -27,6 +27,7 @@ task clean(type: Delete) {
 }
 
 ext {
+    supportLibrary ='26.1.0'
     retrofit2Version = '2.3.0'
     okhttpVersion = '3.9.0'
     converterGsonVersion = '2.3.0'
