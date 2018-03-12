@@ -1,5 +1,6 @@
 package com.fruits
 
+import com.fruits.repository.remote.FruitItemApiResponse
 import com.fruits.repository.remote.FruitsApiResponse
 import com.fruits.repository.remote.FruitsClient
 
@@ -17,5 +18,6 @@ class FruitsPresenter() : BasePresenter<FruitsPresenter.View>() {
     }
 
     interface View : BasePresenterView {
+        fun showListFruits(fruitItemApiResponse: List<FruitItemApiResponse>)
     }
 }
