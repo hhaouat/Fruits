@@ -7,28 +7,29 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.fruits.fruits.FruitsListItemClickListener
 import com.fruits.model.Fruit
 import com.fruits.repository.remote.FruitItemApiResponse
 
-class FruitListFragment : Fragment(), FruitsPresenter.View {
+class FruitListFragment : Fragment(), FruitsPresenter.View, FruitsListItemClickListener{
 
     lateinit var recyclerViewFruits: RecyclerView
     lateinit var fruitsPresenter: FruitsPresenter
     private var layoutManager: RecyclerView.LayoutManager? = null
-    lateinit var fruitAdapter : FruitsAdapter
+    lateinit var fruitsAdapter: FruitsAdapter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         val view = inflater!!.inflate(R.layout.fragment_fruits, container, false)
         recyclerViewFruits  = view.findViewById(R.id.recyclerview)
 
-        fruitAdapter = FruitsAdapter(this.context)
+        fruitsAdapter = FruitsAdapter(this.context)
         layoutManager = LinearLayoutManager(activity)
 
         recyclerViewFruits.setLayoutManager(layoutManager)
-        recyclerViewFruits.setAdapter(fruitAdapter)
+        recyclerViewFruits.setAdapter(fruitsAdapter)
 
         fruitsPresenter = FruitsPresenter(this)
+
         return view
     }
 
@@ -42,6 +43,10 @@ class FruitListFragment : Fragment(), FruitsPresenter.View {
         for (fruitItemApiResponse in listFruitApiResponse){
             listFruit.add(Fruit(fruitItemApiResponse.type, fruitItemApiResponse.price, fruitItemApiResponse.weight))
         }
-        fruitAdapter.update(listFruit)
+        fruitsAdapter.update(listFruit)
+    }
+
+    override fun itemClicked(fruit: Fruit) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
