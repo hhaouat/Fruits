@@ -1,23 +1,29 @@
 package com.fruits
 
+import com.fruits.repository.FruitRepository
 import com.fruits.repository.remote.FruitItemApiResponse
-import com.fruits.repository.remote.FruitsApiResponse
-import com.fruits.repository.remote.FruitsClient
 
-class FruitsPresenter() : BasePresenter<FruitsPresenter.View>() {
-
-    val fruitClient by lazy {
-        FruitsClient.create()
-    }
-
-    lateinit var view: View
+class FruitsPresenter(view: View) : BasePresenter<FruitsPresenter.View>(), FruitRepository.FruitRepositoryCallback {
+    var view = view
+    var repository = FruitRepository()
 
     override fun register(view: View) {
         super.register(view)
-        this.view = view
+    }
+
+    fun subscribeFruitService() {
+        repository.getFruits(this)
     }
 
     interface View : BasePresenterView {
         fun showListFruits(fruitItemApiResponse: List<FruitItemApiResponse>)
+    }
+
+    override fun onSuccess(listFruitApiResponse: List<FruitItemApiResponse>) {
+       view.showListFruits(listFruitApiResponse)
+    }
+
+    override fun onError(message: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
