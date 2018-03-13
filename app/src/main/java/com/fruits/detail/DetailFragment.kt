@@ -21,12 +21,13 @@ class DetailFragment : Fragment() {
         fruit_type.setText(fruit.type)
 
         val fruit_price: TextView = view.findViewById<TextView>(R.id.fruit_price);
-        fruit_price.setText(fruit.price.toString());
+        val unit_price: String = "p"
+        fruit_price.setText(fruit.price.toString() + unit_price);
 
         val fruit_weight: TextView = view.findViewById<TextView>(R.id.fruit_weight);
-        fruit_weight.setText(fruit.weight.toString());
+        val unit_weight: String ="g"
+        fruit_weight.setText(fruit.weight.toString()+ unit_weight);
 
         return view
     }
-
 }
