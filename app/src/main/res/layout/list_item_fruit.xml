@@ -31,62 +31,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.193" />
 
-        <TextView
-            android:id="@+id/fruit_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/fruit_type"
-            android:layout_marginLeft="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="64dp"
-            android:fontFamily="sans-serif-regular"
-            android:text="article_price"
-            android:textSize="15dp"
-            app:layout_constraintStart_toEndOf="@+id/fruit_txt_price"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/fruit_txt_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/fruit_type"
-            android:fontFamily="sans-serif-regular"
-            android:text="Price:"
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/fruit_weight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/fruit_type"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif-regular"
-            android:text="article_weight"
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <TextView
-            android:id="@+id/fruit_txt_weight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/fruit_type"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif-regular"
-            android:text="Weight:"
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/fruit_weight"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

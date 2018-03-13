@@ -1,6 +1,5 @@
 package com.fruits;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.fruits.fruits.FruitsListItemClickListener;
 import com.fruits.model.Fruit;
 
 import java.util.ArrayList;
@@ -17,9 +17,11 @@ public class FruitsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     List<Fruit> fruits = new ArrayList<>();
 
     private Context context;
+    private FruitsListItemClickListener fruitClickListener;
 
-    public FruitsAdapter(Context context){
+    public FruitsAdapter(Context context, FruitsListItemClickListener fruitClickListener){
         this.context = context;
+        this.fruitClickListener = fruitClickListener;
     }
 
     @Override
@@ -34,8 +36,15 @@ public class FruitsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Fruit fruit = fruits.get(position);
+        final Fruit fruit = fruits.get(position);
         ((FruitViewHolder)holder).bind(fruit);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fruitClickListener.itemClicked(fruit);
+            }
+        });
     }
 
     @Override
@@ -57,11 +66,11 @@ public class FruitsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             TextView fruit_type = itemView.findViewById(R.id.fruit_type);
             fruit_type.setText(fruit.getType());
 
-            TextView fruit_price = itemView.findViewById(R.id.fruit_price);
+            /*TextView fruit_price = itemView.findViewById(R.id.fruit_price);
             fruit_price.setText(String.valueOf(fruit.getPrice()));
 
             TextView fruit_weight = itemView.findViewById(R.id.fruit_weight);
-            fruit_weight.setText(String.valueOf(fruit.getWeight()));
+            fruit_weight.setText(String.valueOf(fruit.getWeight()));*/
         }
     }
 }

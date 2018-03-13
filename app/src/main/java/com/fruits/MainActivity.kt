@@ -6,12 +6,14 @@ import android.os.Bundle
 
 class MainActivity : AppCompatActivity() {
 
+    open lateinit var navigator: Navigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var navigator =  Navigator(this)
+        navigator =  Navigator(this, R.id.container)
 
-        navigator.toListFruitFragment(R.id.container)
+        navigator.toListFruitFragment()
     }
 }
