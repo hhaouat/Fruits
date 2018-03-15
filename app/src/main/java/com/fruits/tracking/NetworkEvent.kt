@@ -1,4 +1,4 @@
-package com.fruits.network
+package com.fruits.tracking
 
 interface NetworkEvent {
 

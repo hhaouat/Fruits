@@ -1,8 +1,8 @@
 package com.fruits.repository
 
 import android.util.Log
-import com.fruits.FruitsPresenter
-import com.fruits.network.NetworkEventReporter
+import com.fruits.fruits.FruitsPresenter
+import com.fruits.tracking.EventTracker
 import com.fruits.repository.remote.FruitItemApiResponse
 import com.fruits.repository.remote.FruitsApiResponse
 import com.fruits.repository.remote.FruitsClient
@@ -15,8 +15,6 @@ class FruitRepository {
     val fruitClient by lazy {
         FruitsClient.create()
     }
-
-    //val networkEventReporter = NetworkEventReporter.get()
 
     fun getFruits(callback: FruitsPresenter){
         val fruits : Call<FruitsApiResponse> = fruitClient.getFruit()
@@ -47,18 +45,11 @@ class FruitRepository {
     }
 
     fun sendEventCompleteRequest(){
+        fruitClient.sentEventLoad("load", EventTracker.timeCompleteRequest.toInt())
+    }
 
-        val mydata : Call<Void> = fruitClient.sentEventLoad("load", NetworkEventReporter.timeCompleteRequest.toInt())
-
-        mydata.enqueue(object: Callback<Void>{
-            override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
-                println("my data is working")
-            }
-
-            override fun onFailure(call: Call<Void>?, t: Throwable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        })
+    fun sendTrackUserInteractionRequest(userTimeTracked : Double) {
+        fruitClient.sentEventDisplay("display", userTimeTracked.toString())
     }
 
     interface FruitRepositoryCallback {

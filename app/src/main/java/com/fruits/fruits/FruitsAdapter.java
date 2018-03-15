@@ -1,4 +1,4 @@
-package com.fruits;
+package com.fruits.fruits;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.fruits.R;
 import com.fruits.fruits.FruitsListItemClickListener;
 import com.fruits.model.Fruit;
 
@@ -65,12 +66,6 @@ public class FruitsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public void bind(Fruit fruit){
             TextView fruit_type = itemView.findViewById(R.id.fruit_type);
             fruit_type.setText(fruit.getType());
-
-            /*TextView fruit_price = itemView.findViewById(R.id.fruit_price);
-            fruit_price.setText(String.valueOf(fruit.getPrice()));
-
-            TextView fruit_weight = itemView.findViewById(R.id.fruit_weight);
-            fruit_weight.setText(String.valueOf(fruit.getWeight()));*/
         }
     }
 }

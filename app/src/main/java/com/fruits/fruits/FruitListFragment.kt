@@ -1,4 +1,4 @@
-package com.fruits
+package com.fruits.fruits
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,10 +7,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.fruits.R
 import com.fruits.detail.DetailFragment
-import com.fruits.fruits.FruitsListItemClickListener
 import com.fruits.model.Fruit
 import com.fruits.repository.remote.FruitItemApiResponse
+import com.fruits.tracking.EventTracker
 
 class FruitListFragment : Fragment(), FruitsPresenter.View, FruitsListItemClickListener{
 
@@ -52,7 +53,8 @@ class FruitListFragment : Fragment(), FruitsPresenter.View, FruitsListItemClickL
         val args = Bundle()
         args.putParcelable("fruit", fruit)
         detailFragment.arguments = args
-        System.currentTimeMillis()
+
+        EventTracker.get().startTrackDisplayScreen(System.currentTimeMillis())
 
         activity.getSupportFragmentManager().beginTransaction()
                 .addToBackStack(null)

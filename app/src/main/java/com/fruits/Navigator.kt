@@ -2,6 +2,7 @@ package com.fruits
 
 import android.support.v4.app.FragmentManager
 import com.fruits.detail.DetailFragment
+import com.fruits.fruits.FruitListFragment
 
 class Navigator(mainActivity: MainActivity, containerId: Int) {
 

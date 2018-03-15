@@ -1,4 +1,4 @@
-package com.fruits.network
+package com.fruits.tracking
 
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -6,7 +6,7 @@ import java.io.IOException
 
 internal class LoggingInterceptor : Interceptor {
 
-    private val eventReporter: NetworkEvent? = NetworkEventReporter.get()
+    private val eventReporter: NetworkEvent? = EventTracker.get()
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -22,7 +22,8 @@ internal class LoggingInterceptor : Interceptor {
         completeRequestTime = (t2 - t1) / 1e6
         println(String.format("Received response for %s in %.1fms%n%s",
                 response.request().url(), completeRequestTime, response.headers()))
-                eventReporter!!.setTimeCompleteRequest(completeRequestTime)
+
+        eventReporter!!.setTimeCompleteRequest(completeRequestTime)
         return response
     }
 

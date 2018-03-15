@@ -6,13 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.fruits.fruits.FruitsPresenter
 import com.fruits.R
 import com.fruits.model.Fruit
+import com.fruits.tracking.EventTracker
 
 class DetailFragment : Fragment() {
 
+    lateinit var detailPresenter: DetailPresenter
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.detail_fruit, container, false)
+        detailPresenter = DetailPresenter()
 
         val args = arguments
         val fruit: Fruit = args.getParcelable<Fruit>("fruit")
@@ -29,5 +34,13 @@ class DetailFragment : Fragment() {
         fruit_weight.setText(fruit.weight.toString()+ unit_weight);
 
         return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventTracker.get().endTrackDisplayScreen(System.currentTimeMillis())
+
+        detailPresenter.sendTrackUserInteractionRequest()
+        println("Time tracking user click "+ EventTracker.get().calculTrackDisplayScreen() +"ms")
     }
 }

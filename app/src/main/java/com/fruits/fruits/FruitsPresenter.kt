@@ -1,5 +1,6 @@
-package com.fruits
+package com.fruits.fruits
 
+import com.fruits.BasePresenter
 import com.fruits.repository.FruitRepository
 import com.fruits.repository.remote.FruitItemApiResponse
 
@@ -13,6 +14,10 @@ class FruitsPresenter(view: View) : BasePresenter<FruitsPresenter.View>(), Fruit
 
     fun subscribeFruitService() {
         repository.getFruits(this)
+        sendEventCompleteRequest()
+    }
+
+    fun sendEventCompleteRequest(){
         repository.sendEventCompleteRequest()
     }
 
