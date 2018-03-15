@@ -13,6 +13,7 @@ class FruitsPresenter(view: View) : BasePresenter<FruitsPresenter.View>(), Fruit
 
     fun subscribeFruitService() {
         repository.getFruits(this)
+        repository.sendEventCompleteRequest()
     }
 
     interface View : BasePresenterView {

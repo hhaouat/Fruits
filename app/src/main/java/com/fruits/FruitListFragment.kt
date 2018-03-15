@@ -52,6 +52,7 @@ class FruitListFragment : Fragment(), FruitsPresenter.View, FruitsListItemClickL
         val args = Bundle()
         args.putParcelable("fruit", fruit)
         detailFragment.arguments = args
+        System.currentTimeMillis()
 
         activity.getSupportFragmentManager().beginTransaction()
                 .addToBackStack(null)
