@@ -2,11 +2,14 @@ package com.fruits.repository.remote
 
 import com.fruits.tracking.LoggingInterceptor
 import com.google.gson.GsonBuilder
+import io.reactivex.Observable
+import io.reactivex.Single
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -15,6 +18,9 @@ interface FruitsClient {
 
     @GET("master/data.json")
     fun getFruit(): Call<FruitsApiResponse>
+
+    @GET("master/data.json")
+    fun getSingleFruit(): Single<FruitsApiResponse>
 
     @GET("master/stats")
     fun sentEventLoad(@Query("event")  event : String, @Query("data")  data: Int): Call<Void>
@@ -29,6 +35,7 @@ interface FruitsClient {
         fun create() : FruitsClient {
             val gson = GsonBuilder().create()
             val retrofit = Retrofit.Builder()
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(createOkHttpClient())
                     .baseUrl("https://raw.githubusercontent.com/fmtvp/recruit-test-data/")

@@ -6,6 +6,10 @@ import com.fruits.tracking.EventTracker
 import com.fruits.repository.remote.FruitItemApiResponse
 import com.fruits.repository.remote.FruitsApiResponse
 import com.fruits.repository.remote.FruitsClient
+import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.SingleSource
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,6 +42,10 @@ class FruitRepository {
                 sendEventErrorRequest(t.toString())
             }
         })
+    }
+
+    fun getSingleFruits(): Single <FruitsApiResponse> {
+        return fruitClient.getSingleFruit().subscribeOn(Schedulers.io())
     }
 
     private fun sendEventErrorRequest(errorMessage : String) {
