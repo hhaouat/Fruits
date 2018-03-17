@@ -7,8 +7,8 @@ class DetailPresenter {
 
     var repository = FruitRepository()
 
-    fun sendTrackUserInteractionRequest(){
+    fun trackUserInteractionRequest(){
         var userTimeTracked = EventTracker.get().calculTrackDisplayScreen()
-        repository.sendTrackUserInteractionRequest(userTimeTracked)
+        repository.trackUserInteractionRequest(userTimeTracked)
     }
 }

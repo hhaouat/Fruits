@@ -6,9 +6,7 @@ import com.fruits.tracking.EventTracker
 import com.fruits.repository.remote.FruitItemApiResponse
 import com.fruits.repository.remote.FruitsApiResponse
 import com.fruits.repository.remote.FruitsClient
-import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.SingleSource
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,10 +26,11 @@ class FruitRepository {
                 when (response.isSuccessful) {
                     true -> {
                         callback.onSuccess(response.body()!!.fruit)
-                        sendEventCompleteRequest()
+                        trackCompleteRequest()
                     }
-                    else -> {callback.onError(response.message())
-                        sendEventErrorRequest(response.message())
+                    else -> {
+                        callback.onError(response.message())
+                        trackErrorRequest(response.message())
                     }
                 }
             }
@@ -39,7 +38,7 @@ class FruitRepository {
                 Log.e("TAG", "onFailure: " + t.toString())
 
                 callback.onError(t.toString())
-                sendEventErrorRequest(t.toString())
+                trackErrorRequest(t.toString())
             }
         })
     }
@@ -48,15 +47,15 @@ class FruitRepository {
         return fruitClient.getSingleFruit().subscribeOn(Schedulers.io())
     }
 
-    private fun sendEventErrorRequest(errorMessage : String) {
+    private fun trackErrorRequest(errorMessage : String) {
         fruitClient.sentEventError("error", errorMessage)
     }
 
-    fun sendEventCompleteRequest(){
+    fun trackCompleteRequest(){
         fruitClient.sentEventLoad("load", EventTracker.timeCompleteRequest.toInt())
     }
 
-    fun sendTrackUserInteractionRequest(userTimeTracked : Double) {
+    fun trackUserInteractionRequest(userTimeTracked : Double) {
         fruitClient.sentEventDisplay("display", userTimeTracked.toString())
     }
 

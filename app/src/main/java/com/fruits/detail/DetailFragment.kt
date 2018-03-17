@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.fruits.fruits.FruitsPresenter
 import com.fruits.R
 import com.fruits.model.Fruit
 import com.fruits.tracking.EventTracker
@@ -40,7 +39,7 @@ class DetailFragment : Fragment() {
         super.onStart()
         EventTracker.get().endTrackDisplayScreen(System.currentTimeMillis())
 
-        detailPresenter.sendTrackUserInteractionRequest()
+        detailPresenter.trackUserInteractionRequest()
         println("Time tracking user click "+ EventTracker.get().calculTrackDisplayScreen() +"ms")
     }
 }

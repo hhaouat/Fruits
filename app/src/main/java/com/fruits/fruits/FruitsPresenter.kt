@@ -21,11 +21,6 @@ class FruitsPresenter(view: View) : BasePresenter<FruitsPresenter.View>(), Fruit
     fun subscribeFruitService() {
         repository.getFruits(this)
         loadFruitsOnRefreshAction(view)
-        sendEventCompleteRequest()
-    }
-
-    fun sendEventCompleteRequest(){
-        repository.sendEventCompleteRequest()
     }
 
     fun loadFruitsOnRefreshAction(view: View) {
