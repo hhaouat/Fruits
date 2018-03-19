@@ -33,4 +33,7 @@ ext {
     converterGsonVersion = '2.3.0'
     gsonVersion = '2.8.1'
     retrofit2AdapterRxjava = '2.3.0'
+    mockitoVersion = '2.8.47'
+    testRunnerVersion = '1.0.1'
+    mockitoKotlinVersion = '0.11.0'
 }

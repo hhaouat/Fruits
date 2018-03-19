@@ -1,24 +1,28 @@
 package com.fruits.repository
 
 import android.util.Log
+import com.fruits.fruits.FruitListFragment
 import com.fruits.fruits.FruitsPresenter
 import com.fruits.tracking.EventTracker
 import com.fruits.repository.remote.FruitItemApiResponse
 import com.fruits.repository.remote.FruitsApiResponse
 import com.fruits.repository.remote.FruitsClient
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FruitRepository {
+open class FruitRepository {
+
+    private val TAG = FruitRepository::class.java!!.getName()
 
     val fruitClient by lazy {
         FruitsClient.create()
     }
 
-    fun getFruits(callback: FruitsPresenter){
+    fun getFruits(callback: FruitRepositoryCallback){
         val fruits : Call<FruitsApiResponse> = fruitClient.getFruit()
 
         fruits.enqueue(object : Callback<FruitsApiResponse> {
@@ -63,5 +67,4 @@ class FruitRepository {
         fun onSuccess(listFruitApiResponse: List<FruitItemApiResponse>)
         fun onError(message: String)
     }
-
 }

@@ -12,17 +12,18 @@ import android.widget.Toast
 import com.fruits.R
 import com.fruits.detail.DetailFragment
 import com.fruits.model.Fruit
+import com.fruits.repository.FruitRepository
 import com.fruits.repository.remote.FruitItemApiResponse
 import com.fruits.tracking.EventTracker
 import io.reactivex.Observable
 
-class FruitListFragment : Fragment(), FruitsPresenter.View, FruitsListItemClickListener{
-
+open class FruitListFragment : Fragment(), FruitsPresenter.View, FruitsListItemClickListener{
     lateinit var recyclerViewFruits: RecyclerView
     lateinit var swipeRefreshLayout : SwipeRefreshLayout
     lateinit var fruitsPresenter: FruitsPresenter
     private var layoutManager: RecyclerView.LayoutManager? = null
     lateinit var fruitsAdapter: FruitsAdapter
+    lateinit var fruitRepository :FruitRepository
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_fruits, container, false)
@@ -35,15 +36,21 @@ class FruitListFragment : Fragment(), FruitsPresenter.View, FruitsListItemClickL
         recyclerViewFruits.setAdapter(fruitsAdapter)
 
         swipeRefreshLayout = view.findViewById(R.id.swiperefreshlayout)
+        fruitRepository = FruitRepository()
 
-        fruitsPresenter = FruitsPresenter(this)
+        fruitsPresenter = FruitsPresenter(this, fruitRepository)
 
         return view
     }
 
     override fun onResume() {
         super.onResume()
-        fruitsPresenter.subscribeFruitService()
+        fruitsPresenter.startPresenting()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        fruitsPresenter.stopPresenting()
     }
 
     override fun showListFruits(listFruitApiResponse: List<FruitItemApiResponse>) {
@@ -66,7 +73,7 @@ class FruitListFragment : Fragment(), FruitsPresenter.View, FruitsListItemClickL
         return Observable.create<Any> { emitter ->
             swipeRefreshLayout.setOnRefreshListener {
                 emitter.onNext(0) }
-            emitter.setCancellable { swipeRefreshLayout.setOnRefreshListener(null) }
+                emitter.setCancellable { swipeRefreshLayout.setOnRefreshListener(null) }
         }
     }
 
