@@ -17,6 +17,5 @@ open class BasePresenter {
     fun addToUnsubscribe(disposable: Disposable) {
         disposables.add(disposable)
     }
-
 }
 

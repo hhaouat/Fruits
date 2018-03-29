@@ -9,13 +9,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.fruits.MainActivity
 import com.fruits.R
 import com.fruits.detail.DetailFragment
 import com.fruits.model.Fruit
 import com.fruits.repository.FruitRepository
+import com.fruits.repository.FruitRepositoryImpl
 import com.fruits.repository.remote.FruitItemApiResponse
 import com.fruits.tracking.EventTracker
+import com.fruits.util.AndroidLogger
+import com.fruits.util.SchedulerProvider
 import io.reactivex.Observable
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 open class FruitListFragment : Fragment(), FruitsPresenter.View, FruitsListItemClickListener{
     lateinit var recyclerViewFruits: RecyclerView
@@ -23,7 +30,7 @@ open class FruitListFragment : Fragment(), FruitsPresenter.View, FruitsListItemC
     lateinit var fruitsPresenter: FruitsPresenter
     private var layoutManager: RecyclerView.LayoutManager? = null
     lateinit var fruitsAdapter: FruitsAdapter
-    lateinit var fruitRepository :FruitRepository
+    lateinit var fruitRepository : FruitRepository
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_fruits, container, false)
@@ -36,9 +43,10 @@ open class FruitListFragment : Fragment(), FruitsPresenter.View, FruitsListItemC
         recyclerViewFruits.setAdapter(fruitsAdapter)
 
         swipeRefreshLayout = view.findViewById(R.id.swiperefreshlayout)
-        fruitRepository = FruitRepository()
+        fruitRepository = FruitRepositoryImpl()
+        var scheduler = SchedulerProvider(AndroidSchedulers.mainThread(), Schedulers.io())
 
-        fruitsPresenter = FruitsPresenter(this, fruitRepository)
+        fruitsPresenter = FruitsPresenter(this, fruitRepository, scheduler, AndroidLogger())
 
         return view
     }
