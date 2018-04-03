@@ -4,7 +4,6 @@ import android.util.Log
 import com.fruits.BasePresenter
 import com.fruits.repository.FruitRepository
 import com.fruits.repository.remote.FruitItemApiResponse
-import com.fruits.util.AndroidLogger
 import com.fruits.util.Logger
 import com.fruits.util.SchedulerProvider
 import io.reactivex.Observable
@@ -30,22 +29,22 @@ class FruitsPresenter(val view: View, val fruitRepository: FruitRepository, val 
     }
 
     private val disposableOnrefreshAction = view.onRefreshAction()
-        .doOnNext({ ignored -> view.showRefreshing(true) })
-        .switchMapSingle({ ignored -> fruitRepository.getSingleFruits() })
-        .map { it.fruit }
-        .subscribeOn(scheduler.ioScheduler)
-        .observeOn(scheduler.uiScheduler)
-        .subscribe(
-            { fruits ->
-                logger.logInfo(TAG, "Subscribe fruits")
-                view.showRefreshing(false)
-                view.showListFruits(fruits)
-            },
-            { error ->
-                Log.e(TAG, "Error subscribe" + error)
-                view.showError("An error occurs while loading the data, please try again.")
-                view.showRefreshing(false)
-            })
+            .doOnNext({ ignored -> view.showRefreshing(true) })
+            .switchMapSingle({ ignored -> fruitRepository.getSingleFruits() })
+            .map { it.fruit }
+            .subscribeOn(scheduler.ioScheduler)
+            .observeOn(scheduler.uiScheduler)
+            .subscribe(
+                    { fruits ->
+                        logger.logInfo(TAG, "Subscribe fruits")
+                        view.showRefreshing(false)
+                        view.showListFruits(fruits)
+                    },
+                    { error ->
+                        Log.e(TAG, "Error subscribe" + error)
+                        view.showError("An error occurs while loading the data, please try again.")
+                        view.showRefreshing(false)
+                    })
 
     fun stopPresenting() {
         unregister()
