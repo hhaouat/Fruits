@@ -4,11 +4,11 @@ import android.util.Log
 
 class AndroidLogger() : Logger {
 
-    override fun logError(error: String) {
-        Log.e("",error)
+    override fun logError(tag: String, error: String) {
+        Log.e(tag, error)
     }
 
-    override fun logInfo(info: String) {
-        Log.i("",info)
+    override fun logInfo(tag: String, info: String) {
+        Log.i(tag, info)
     }
 }

@@ -1,6 +1,6 @@
 package com.fruits.util
 
 interface Logger {
-    fun logError(error: String)
-    fun logInfo(info: String)
+    fun logError(tag: String, error: String)
+    fun logInfo(tag: String, info: String)
 }

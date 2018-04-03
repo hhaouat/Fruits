@@ -24,8 +24,7 @@ class FruitsPresenter(val view: View, val fruitRepository: FruitRepository, val 
         }
 
         override fun onError(logMessage: String) {
-            //Log.e(TAG, "Error subscribe" + logMessage)
-            logger.logError(logMessage)
+            logger.logError(TAG, logMessage)
             view.showError("An error occurs while loading the data, please try again.")
         }
     }
@@ -38,7 +37,7 @@ class FruitsPresenter(val view: View, val fruitRepository: FruitRepository, val 
         .observeOn(scheduler.uiScheduler)
         .subscribe(
             { fruits ->
-                Log.i(TAG, "Subscribe fruits")
+                logger.logInfo(TAG, "Subscribe fruits")
                 view.showRefreshing(false)
                 view.showListFruits(fruits)
             },

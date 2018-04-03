@@ -9,24 +9,20 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FruitRepositoryImpl : FruitRepository{
+class FruitRepositoryImpl(val fruitClient: FruitsClient) : FruitRepository{
 
-    private val TAG = FruitRepository::class.java!!.getName()
-
-    val fruitClient by lazy {
-        FruitsClient.create()
-    }
+    private val TAG = FruitRepositoryImpl::class.java!!.getName()
 
     override fun getSingleFruits(): Single<FruitsApiResponse> {
-        return fruitClient.getSingleFruit()
-    }
-
-    override fun trackErrorRequest(errorMessage : String) {
-        fruitClient.sentEventError("error", errorMessage)
+        return fruitClient.getSingleFruitApiResponse()
     }
 
     override fun trackCompleteRequest(){
         fruitClient.sentEventLoad("load", EventTracker.timeCompleteRequest.toInt())
+    }
+
+    override fun trackErrorRequest(errorMessage : String) {
+        fruitClient.sentEventError("error", errorMessage)
     }
 
     override fun trackUserInteractionRequest(userTimeTracked : Double) {
@@ -40,20 +36,17 @@ class FruitRepositoryImpl : FruitRepository{
             override fun onResponse(call: Call<FruitsApiResponse>, response: Response<FruitsApiResponse>) {
                 when (response.isSuccessful) {
                     true -> {
-                        //val onSuccess = SuccessfulResponseFruitRepository(response.body()!!.fruit)
-                        //onSuccess.getFruits()
                         callback.onSuccess(response.body()!!.fruit)
                         trackCompleteRequest()
                     }
                     else -> {
                         callback.onError(response.message())
-
                         trackErrorRequest(response.message())
                     }
                 }
             }
             override fun onFailure(call: Call<FruitsApiResponse>, t: Throwable) {
-                Log.e("TAG", "onFailure: " + t.toString())
+                Log.e(TAG, "onFailure: " + t.toString())
 
                 callback.onError(t.toString())
                 trackErrorRequest(t.toString())

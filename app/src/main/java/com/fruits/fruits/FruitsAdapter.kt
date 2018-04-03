@@ -16,17 +16,17 @@ import java.util.List;
 class FruitsAdapter(context :Context, fruitClickListener: FruitsListItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var fruits : MutableList<Fruit> = ArrayList()
 
-    private var context : Context = context;
-    private var fruitClickListener : FruitsListItemClickListener = fruitClickListener;
+    private val context : Context = context;
+    private val fruitClickListener : FruitsListItemClickListener = fruitClickListener;
 
 
     @Override
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
 
-        var layoutInflater : LayoutInflater = LayoutInflater.from(context);
-        var view : View = layoutInflater.inflate(R.layout.list_item_fruit, parent, false);
+        val layoutInflater : LayoutInflater = LayoutInflater.from(context);
+        val view : View = layoutInflater.inflate(R.layout.list_item_fruit, parent, false);
 
-        var fruitViewHolder : FruitViewHolder = FruitViewHolder(view);
+        val fruitViewHolder : FruitViewHolder = FruitViewHolder(view);
 
         return fruitViewHolder;
     }
@@ -53,7 +53,7 @@ class FruitsAdapter(context :Context, fruitClickListener: FruitsListItemClickLis
         class FruitViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
             fun bind(fruit :Fruit){
-                var fruit_type : TextView = itemView.findViewById(R.id.fruit_type);
+                val fruit_type : TextView = itemView.findViewById(R.id.fruit_type);
                 fruit_type.setText(fruit.type);
             }
         }

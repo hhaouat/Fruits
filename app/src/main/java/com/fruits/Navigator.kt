@@ -4,13 +4,12 @@ import android.support.v4.app.FragmentManager
 import com.fruits.detail.DetailFragment
 import com.fruits.fruits.FruitListFragment
 
-class Navigator(mainActivity: MainActivity, containerId: Int) {
+class Navigator(mainActivity: MainActivity, private val containerId: Int) {
 
-    private var fragmentManager: FragmentManager = mainActivity.getSupportFragmentManager()
-    private var containerId = containerId
+    private val fragmentManager: FragmentManager = mainActivity.getSupportFragmentManager()
 
     fun toListFruitFragment() {
-        var fruitListFragment = FruitListFragment()
+        val fruitListFragment = FruitListFragment()
 
         fragmentManager.beginTransaction()
                 .replace(containerId, fruitListFragment)

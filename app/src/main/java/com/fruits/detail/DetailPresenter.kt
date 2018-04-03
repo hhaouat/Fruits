@@ -1,16 +1,15 @@
 package com.fruits.detail
 
-import com.fruits.repository.FruitRepository
 import com.fruits.repository.FruitRepositoryImpl
+import com.fruits.repository.remote.FruitsClient
 import com.fruits.tracking.EventTracker
-import kotlin.jvm.internal.FunctionReferenceImpl
 
 class DetailPresenter {
 
-    var repository = FruitRepositoryImpl()
+    val repository = FruitRepositoryImpl(FruitsClient.create())
 
     fun trackUserInteractionRequest(){
-        var userTimeTracked = EventTracker.get().calculTrackDisplayScreen()
+        val userTimeTracked = EventTracker.get().calculTrackDisplayScreen()
         repository.trackUserInteractionRequest(userTimeTracked)
     }
 }

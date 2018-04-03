@@ -20,7 +20,7 @@ interface FruitsClient {
     fun getFruit(): Call<FruitsApiResponse>
 
     @GET("master/data.json")
-    fun getSingleFruit(): Single<FruitsApiResponse>
+    fun getSingleFruitApiResponse(): Single<FruitsApiResponse>
 
     @GET("master/stats")
     fun sentEventLoad(@Query("event")  event : String, @Query("data")  data: Int): Call<Void>
