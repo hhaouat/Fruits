@@ -2,7 +2,6 @@ package com.fruits.detail
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import com.fruits.R
 import com.fruits.model.Fruit
 import com.fruits.tracking.EventTracker
 import com.fruits.util.AndroidLogger
-import java.util.logging.Logger
 
 class DetailFragment : Fragment() {
 
@@ -32,7 +30,7 @@ class DetailFragment : Fragment() {
         val unit_weight = "g"
 
         fruit_price.setText(fruit.price.toString() + unit_price);
-        fruit_weight.setText(fruit.weight.toString()+ unit_weight);
+        fruit_weight.setText(fruit.weight.toString() + unit_weight);
 
         fruit_type.setText(fruit.type)
         return view
@@ -43,6 +41,6 @@ class DetailFragment : Fragment() {
         EventTracker.get().endTrackDisplayScreen(System.currentTimeMillis())
 
         detailPresenter.trackUserInteractionRequest()
-        logger.logInfo(DetailFragment::class.java.name, "Time tracking user click "+ EventTracker.get().calculTrackDisplayScreen() +"ms")
+        logger.logInfo(DetailFragment::class.java.name, "Time tracking user click " + EventTracker.get().calculTrackDisplayScreen() + "ms")
     }
 }

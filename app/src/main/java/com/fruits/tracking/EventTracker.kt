@@ -17,8 +17,8 @@ class EventTracker : NetworkEvent, UserEvent {
         var instance : EventTracker = EventTracker.get()
 
         /**
-         * Static accessor allowing callers to easily hook into the WebKit Inspector system without
-         * creating dependencies on the main Stetho initialization code path.
+         * Static accessor allowing callers to avoid
+         * creating dependencies
          */
         @Synchronized
         open fun get() : EventTracker {

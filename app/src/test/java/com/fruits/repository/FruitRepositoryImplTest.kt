@@ -75,7 +75,6 @@ class FruitRepositoryImplTest {
         val repo = SuccessfulResponseFruitRepository(listOf(fruitItem))
 
         //when
-        //repositoryImpl.getFruits(callback)
         repo.getFruits(callback);
 
         //then

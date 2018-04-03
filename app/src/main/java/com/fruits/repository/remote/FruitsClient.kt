@@ -3,10 +3,8 @@ package com.fruits.repository.remote
 import com.fruits.BuildConfig
 import com.fruits.tracking.LoggingInterceptor
 import com.google.gson.GsonBuilder
-import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -23,18 +21,30 @@ interface FruitsClient {
     @GET("master/data.json")
     fun getSingleFruitApiResponse(): Single<FruitsApiResponse>
 
+    /**
+     *  Load Event is sent for any network request
+    data: the time in ms for the complete request
+     */
     @GET("master/stats")
-    fun sentEventLoad(@Query("event")  event : String, @Query("data")  data: Int): Call<Void>
+    fun sentEventLoad(@Query("event") event: String, @Query("load") data: Int): Call<Void>
 
+    /**
+     * Error event is sent when ever there is a raised exception or application crash
+    data: message error
+     */
     @GET("master/stats")
-    fun sentEventError(@Query("event")  event : String, @Query("error")  data: String): Call<Void>
+    fun sentEventError(@Query("event") event: String, @Query("error") data: String): Call<Void>
 
+    /**
+     * Display event is sent when ever a screen is shown
+    data: the time (in ms) from when the user initiated a request that would show the screen to the point where the screen has been shown
+     */
     @GET("master/stats")
-    fun sentEventDisplay(@Query("event")  event : String, @Query("display")  data: String): Call<Void>
+    fun sentEventDisplay(@Query("event") event: String, @Query("display") data: String): Call<Void>
 
     companion object {
 
-        fun create() : FruitsClient {
+        fun create(): FruitsClient {
             val gson = GsonBuilder().create()
 
             val retrofit = Retrofit.Builder()
