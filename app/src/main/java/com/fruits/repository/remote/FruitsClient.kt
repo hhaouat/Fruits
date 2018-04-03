@@ -1,5 +1,6 @@
 package com.fruits.repository.remote
 
+import com.fruits.BuildConfig
 import com.fruits.tracking.LoggingInterceptor
 import com.google.gson.GsonBuilder
 import io.reactivex.Observable
@@ -32,13 +33,15 @@ interface FruitsClient {
     fun sentEventDisplay(@Query("event")  event : String, @Query("display")  data: String): Call<Void>
 
     companion object {
+
         fun create() : FruitsClient {
             val gson = GsonBuilder().create()
+
             val retrofit = Retrofit.Builder()
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(createOkHttpClient())
-                    .baseUrl("https://raw.githubusercontent.com/fmtvp/recruit-test-data/")
+                    .baseUrl(BuildConfig.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
 
@@ -52,15 +55,6 @@ interface FruitsClient {
             val client = OkHttpClient.Builder()
                     .addNetworkInterceptor(LoggingInterceptor())
                     .build()
-
-            val request: Request = Request.Builder()
-                    .url("https://raw.githubusercontent.com/fmtvp/recruit-test-data/master/stats?event=load&data="
-                            + LoggingInterceptor.completeRequestTime)
-                    .header("User-Agent", "OkHttp Example")
-                    .build()
-
-            /*val response = client.newCall(request).execute()
-            response.body()!!.close()*/
 
             return client
         }

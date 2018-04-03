@@ -11,7 +11,7 @@ import retrofit2.Response
 
 class FruitRepositoryImpl(val fruitClient: FruitsClient) : FruitRepository{
 
-    private val TAG = FruitRepositoryImpl::class.java!!.getName()
+    private val TAG = FruitRepositoryImpl::class.java.getName()
 
     override fun getSingleFruits(): Single<FruitsApiResponse> {
         return fruitClient.getSingleFruitApiResponse()

@@ -10,10 +10,10 @@ class Fruit(val type: String, val price: Int, val weight: Int) : Parcelable {
             parcel.readInt()) {
     }
 
-    override fun writeToParcel(dest: Parcel?, flags: Int) {
-        dest!!.writeString(type)
-        dest!!.writeInt(price)
-        dest!!.writeInt(weight)
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeString(type)
+        dest.writeInt(price)
+        dest.writeInt(weight)
     }
 
     override fun describeContents(): Int {
